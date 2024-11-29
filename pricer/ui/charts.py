@@ -13,9 +13,11 @@ class ChartManager:
             title='Option Payoff Profile',
             xaxis_title='Underlying Price',
             yaxis_title='Payoff',
-            showlegend=True
+            showlegend=True,
+            height=300,
+            margin=dict(l=0, r=0, t=30, b=0)
         )
-        st.plotly_chart(fig)
+        st.plotly_chart(fig, use_container_width=True)
     
     @staticmethod
     def plot_heatmap(
@@ -43,8 +45,9 @@ class ChartManager:
             ),
             yaxis=dict(
                 title="Underlying Price",
-                autorange=True  # Ensure proper direction of price axis
+                autorange=True
             ),
-            height=600
+            height=800,
+            margin=dict(l=0, r=0, t=30, b=0)
         )
         st.plotly_chart(fig_heatmap, use_container_width=True)

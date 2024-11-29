@@ -9,9 +9,37 @@ class OptionConstructor:
         with st.sidebar:
             st.header("Market Parameters")
             S0 = st.number_input("Spot Price", value=100.0, step=1.0)
-            r = st.number_input("Risk-free Rate", value=0.05, step=0.01)
-            sigma = st.number_input("Volatility", value=0.2, step=0.01)
-            T = st.number_input("Time to Maturity", value=1.0, step=0.1)
+            
+            # Convert percentages to decimals
+            r_percent = st.number_input(
+                "Risk-free Rate (%)", 
+                value=5.0,
+                step=1.0,
+                min_value=-10.0,
+                max_value=100.0,
+                help="Annual risk-free interest rate in percent"
+            )
+            r = r_percent / 100.0
+            
+            sigma_percent = st.number_input(
+                "Volatility (%)", 
+                value=20.0,
+                step=1.0,
+                min_value=1.0,
+                max_value=200.0,
+                help="Annual volatility in percent"
+            )
+            sigma = sigma_percent / 100.0
+            
+            T = st.number_input(
+                "Time to Maturity (years)", 
+                value=1.0,
+                step=0.1,
+                min_value=0.01,
+                max_value=30.0,
+                help="Time to expiration in years"
+            )
+            
         return S0, r, sigma, T
     
     @staticmethod
@@ -65,18 +93,22 @@ class OptionConstructor:
         if options:
             st.subheader("Current Portfolio")
             
-            # Create portfolio table
-            data = [
-                {
-                    'Type': opt['type'].capitalize(),
-                    'Strike': f"{opt['strike']:.2f}",
-                    'Quantity': f"{opt['quantity']:.2f}"
-                }
-                for opt in options
-            ]
+            # Create portfolio table with delete buttons
+            for idx, opt in enumerate(options):
+                col1, col2, col3, col4 = st.columns([2, 2, 2, 1])
+                
+                with col1:
+                    st.text(opt['type'].capitalize())
+                with col2:
+                    st.text(f"{opt['strike']:.2f}")
+                with col3:
+                    st.text(f"{opt['quantity']:.2f}")
+                with col4:
+                    if st.button("🗑️", key=f"delete_{idx}", use_container_width=True):
+                        st.session_state.options.pop(idx)
+                        st.rerun()
             
-            st.table(data)
-            
-            if st.button("Clear Portfolio"):
+            # Add clear all button below the table
+            if st.button("Clear Portfolio", use_container_width=True):
                 st.session_state.options = []
                 st.rerun() 

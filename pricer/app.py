@@ -26,14 +26,33 @@ def main():
     
     # Calculate and display visualizations
     if st.session_state.options:
+        # Get min and max strikes from portfolio
+        strikes = [option['strike'] for option in st.session_state.options]
+        min_strike = min(strikes)
+        max_strike = max(strikes)
+        
+        # Calculate price range based on strikes and volatility
+        price_range = 1.5 * sigma * max_strike  # 1.5 standard deviations
+        S_min = max(min_strike - price_range, 1)  # Ensure positive price
+        S_max = max_strike + price_range
+        
         # Calculate payoff
-        S_range = np.linspace(max(0.5*S0, 1), 1.5*S0, 100)
+        S_range = np.linspace(S_min, S_max, 100)
         payoff = PayoffService.calculate_payoff(S_range, st.session_state.options)
         ChartManager.plot_payoff(S_range, payoff)
         
-        # Calculate and display price surface
-        S_grid = np.linspace(max(0.5*S0, 1), 1.5*S0, 50)
-        T_grid = np.linspace(0.1, T, 50)
+        # Heatmap resolution slider
+        resolution = st.slider(
+            "Heatmap Resolution",
+            min_value=5,
+            max_value=500,
+            value=100,
+            help="Higher values give more detailed heatmap but may slow down rendering"
+        )
+        
+        # Calculate and display price surface with same price range
+        S_grid = np.linspace(S_min, S_max, resolution)
+        T_grid = np.linspace(0.1, T, resolution)
         price_surface = PricingService.calculate_price_surface(
             st.session_state.options,
             S_grid,

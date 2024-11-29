@@ -15,8 +15,6 @@ class OptionConstructor:
                 "Risk-free Rate (%)", 
                 value=5.0,
                 step=1.0,
-                min_value=-10.0,
-                max_value=100.0,
                 help="Annual risk-free interest rate in percent"
             )
             r = r_percent / 100.0
@@ -25,8 +23,6 @@ class OptionConstructor:
                 "Volatility (%)", 
                 value=20.0,
                 step=1.0,
-                min_value=1.0,
-                max_value=200.0,
                 help="Annual volatility in percent"
             )
             sigma = sigma_percent / 100.0
@@ -35,8 +31,6 @@ class OptionConstructor:
                 "Time to Maturity (years)", 
                 value=1.0,
                 step=0.1,
-                min_value=0.01,
-                max_value=30.0,
                 help="Time to expiration in years"
             )
             

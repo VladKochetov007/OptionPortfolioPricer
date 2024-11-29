@@ -1,12 +1,11 @@
 import numpy as np
-from typing import List, Dict
 from models.vanilla_option import VanillaOption
 
 
 class PricingService:
     @staticmethod
     def calculate_price_surface(
-        options: List[Dict],
+        options: list[dict[str, float]],
         S_grid: np.ndarray,
         T_grid: np.ndarray,
         r: float,

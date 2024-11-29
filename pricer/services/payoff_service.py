@@ -1,10 +1,9 @@
 import numpy as np
-from typing import List, Dict
 
 
 class PayoffService:
     @staticmethod
-    def calculate_payoff(S: np.ndarray, options: List[Dict]) -> np.ndarray:
+    def calculate_payoff(S: np.ndarray, options: list[dict[str, float]]) -> np.ndarray:
         """Calculate total payoff for a combination of options"""
         total_payoff = np.zeros_like(S)
         for opt in options:

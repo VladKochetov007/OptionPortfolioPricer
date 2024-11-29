@@ -6,10 +6,10 @@ import numpy as np
 @dataclass
 class VanillaOption:
     """Class for vanilla option pricing using Black-Scholes model"""
-    S: float  # Spot price
-    K: float  # Strike price
-    T: float  # Time to maturity
-    r: float  # Risk-free rate
+    S: float      # Spot price
+    K: float      # Strike price
+    T: float      # Time to maturity
+    r: float      # Risk-free rate
     sigma: float  # Volatility
     option_type: str = 'call'
     

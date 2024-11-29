@@ -9,9 +9,7 @@ A web application for pricing and analyzing portfolios of European vanilla optio
 - Explore the price surface across different spot prices and times to maturity
 - Adjust market parameters like spot price, interest rate, and volatility
 
-<p align="center">
-    <img src="image.png" width="400" />
-</p>
+![usage](image.png)
 
 ## Features
 - Interactive GUI built with Streamlit

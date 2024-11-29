@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from scipy.stats import norm
-import numpy as np
+import torch
+from torch.distributions import Normal
 
+normal = Normal(0, 1)
 
 @dataclass
 class VanillaOption:
@@ -13,14 +14,16 @@ class VanillaOption:
     sigma: float  # Volatility
     option_type: str = 'call'
     
-    def d1(self) -> float:
-        return (np.log(self.S/self.K) + (self.r + 0.5*self.sigma**2)*self.T) / (self.sigma*np.sqrt(self.T))
+    def d1(self) -> torch.Tensor:
+        return (torch.log(self.S/self.K) + (self.r + 0.5*self.sigma**2)*self.T) / (self.sigma*torch.sqrt(torch.tensor(self.T)))
     
-    def d2(self) -> float:
-        return self.d1() - self.sigma*np.sqrt(self.T)
+    def d2(self) -> torch.Tensor:
+        return self.d1() - self.sigma*torch.sqrt(torch.tensor(self.T))
     
     def price(self) -> float:
         if self.option_type == 'call':
-            return self.S*norm.cdf(self.d1()) - self.K*np.exp(-self.r*self.T)*norm.cdf(self.d2())
+            return (self.S * normal.cdf(self.d1()) - 
+                   self.K * torch.exp(-self.r*self.T) * normal.cdf(self.d2())).item()
         else:  # put
-            return self.K*np.exp(-self.r*self.T)*norm.cdf(-self.d2()) - self.S*norm.cdf(-self.d1()) 
+            return (self.K * torch.exp(-self.r*self.T) * normal.cdf(-self.d2()) - 
+                   self.S * normal.cdf(-self.d1())).item() 

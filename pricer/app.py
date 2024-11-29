@@ -21,7 +21,7 @@ class OptionPricerApp:
             
             # Option constructor
             new_option = OptionConstructor.render_option_inputs()
-            if st.button("Add Option"):
+            if new_option:
                 AppState.add_option(new_option)
             
             # Portfolio display
@@ -91,4 +91,4 @@ class OptionPricerApp:
 
 if __name__ == "__main__":
     app = OptionPricerApp()
-    app.run() 
+    app.run()

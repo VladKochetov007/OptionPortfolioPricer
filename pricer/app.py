@@ -7,7 +7,7 @@ from services.payoff_service import PayoffService
 
 
 def main():
-    st.title("Exotic Option Pricer")
+    st.title("Option Portfolio Pricer")
     
     # Get market parameters
     S0, r, sigma, T = OptionConstructor.render_market_params()

@@ -47,7 +47,7 @@ def main():
         resolution = st.slider(
             "Heatmap Resolution",
             min_value=5,
-            max_value=500,
+            max_value=1000,
             value=100,
             help="Higher values give more detailed heatmap but may slow down rendering"
         )

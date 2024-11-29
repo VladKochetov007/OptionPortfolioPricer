@@ -26,7 +26,7 @@ The application leverages PyTorch's GPU acceleration capabilities to perform par
 - Vectorized Black-Scholes calculations across the entire price-time surface
 - Automatic GPU utilization when available for maximum performance
 - Efficient tensor operations for large option portfolios
-- Real-time surface updates even with high-resolution grids (up to 500x500 points)
+- Real-time surface updates even with high-resolution grids (up to 1000x1000 points)
 
 ## Usage
 The application provides an intuitive interface where you can:

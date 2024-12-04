@@ -46,7 +46,7 @@ class OptionPricerApp:
                     AppState.get_options(), 
                     sigma
                 )
-                S_range = self.calc_service.create_grids(S_min, S_max, T, 100)[0]
+                S_range = self.calc_service.create_grids(S_min, S_max, T, 1000)[0]
                 payoff = PayoffService.calculate_payoff(S_range, AppState.get_options())
                 ChartManager.plot_payoff(S_range, payoff)
             

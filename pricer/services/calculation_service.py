@@ -25,5 +25,5 @@ class CalculationService:
         resolution: int
     ) -> tuple[np.ndarray, np.ndarray]:
         S_grid = np.linspace(S_min, S_max, resolution)
-        T_grid = np.linspace(0.1, T, resolution)
+        T_grid = np.linspace(0, T, resolution)
         return S_grid, T_grid

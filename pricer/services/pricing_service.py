@@ -22,7 +22,7 @@ class PricingService:
         S_mesh, T_mesh = torch.meshgrid(S_grid_t, T_grid_t, indexing='xy')
         price_surface = torch.zeros_like(S_mesh)
         
-        # Добавляем малое число к T_mesh для избежания деления на ноль
+        # Add a small number to T_mesh to avoid division by zero
         T_mesh_safe = T_mesh + 1e-10
         
         # Vectorized computation for each option
@@ -41,7 +41,7 @@ class PricingService:
                 option_price = (K * torch.exp(-r*T_mesh) * normal.cdf(-d2) - 
                               S_mesh * normal.cdf(-d1))
             
-            # Для T=0 используем внутреннюю стоимость
+            # Use intrinsic value for T=0
             zero_time_mask = T_mesh == 0
             if opt['type'] == 'call':
                 intrinsic_value = torch.maximum(S_mesh - K, torch.tensor(0.0))
